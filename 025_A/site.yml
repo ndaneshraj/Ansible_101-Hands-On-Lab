@@ -1,0 +1,13 @@
+---
+
+- hosts: R4
+
+  connection: local
+  user: admin
+  gather_facts: 'no'
+
+  roles:
+    - hostname
+    - interfaces
+    - routing
+    - snmp

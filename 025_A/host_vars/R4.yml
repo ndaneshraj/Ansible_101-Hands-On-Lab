@@ -1,0 +1,28 @@
+---
+
+hostname: rtr-4
+domain_name: 025.ansible
+
+loopback:
+  address: 4.4.4.4
+  mask: 255.255.255.255
+
+interfaces:
+- interface: Fa0/0
+  description: connection rtr-1
+  address: 10.0.1.4
+  mask: "255.255.255.0"
+
+- interface: Serial0/1
+  description: interface to client
+  address: 150.4.4.4
+  mask: "255.255.255.0"
+
+ospf:
+  processid: 4
+  neighbor:
+    - {address: 10.0.1.4 0.0.0.0, area: 0}
+
+ospfinterfaces:
+- interface: Fa0/0
+

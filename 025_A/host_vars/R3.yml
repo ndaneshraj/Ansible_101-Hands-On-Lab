@@ -1,0 +1,28 @@
+---
+
+hostname: rtr-3
+domain_name: 025.ansible
+
+loopback:
+  address: 3.3.3.3
+  mask: 255.255.255.255
+
+interfaces:
+- interface: Serial0/1
+  description: connection rtr-2
+  address: 10.0.0.10
+  mask: "255.255.255.252"
+
+- interface: S1/1
+  description: connection rtr-1
+  address: 10.0.0.6
+  mask: "255.255.255.252"
+
+ospf:
+  processid: 3
+  neighbor:
+    - {address: 10.0.0.8 0.0.0.3, area: 2}
+    - {address: 150.3.3.0 0.0.0.255, area: 2}
+
+defroute:
+- route: 0.0.0.0 0.0.0.0 serial 1/1

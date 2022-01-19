@@ -1,0 +1,14 @@
+{% if static is defined %}
+{% for item in static %}
+ ip route {{ item.route }}
+ router ospf {{ ospf.processid }}
+  {{ item.connected }}
+  {{ item.static }}
+{% endfor %}
+{% endif %}
+
+{% if defroute is defined %}
+{% for item in defroute %}
+ ip route{{ item.route }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,19 @@
+{% if tunnelr1 is defined %}
+{% for item in tunnelr1 %}
+ interface {{ item.interface }}
+  ip address {{ item.address }} {{ item.mask }}
+  tunnel source {{ item.source }}
+  tunnel destination {{ item.destination }}
+  {{ item.ospf }}
+{% endfor %}
+{% endif %}
+
+{% if tunnelr2 is defined %}
+{% for item in tunnelr2 %}
+ interface {{ item.interface }}
+  ip address {{ item.address }} {{ item.mask }}
+  tunnel source {{ item.source }}
+  tunnel destination {{ item.destination }}
+  {{ item.ospf }}
+{% endfor %}
+{% endif %}

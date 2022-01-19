@@ -1,0 +1,15 @@
+{% if loopback is defined %}
+interface Loopback0
+ ip address {{ loopback.address }} {{ loopback.mask }}
+{% endif %}
+
+{% if interfaces is defined %}
+{% for item in interfaces %}
+ interface {{ item.interface }}
+   description {{ item.description }}
+   ip address {{ item.address }} {{ item.mask }}
+   no shutdown
+{% endfor %}
+{% endif %}
+
+

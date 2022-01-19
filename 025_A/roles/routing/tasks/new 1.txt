@@ -1,0 +1,15 @@
+{% if ospf is defined %}
+router ospf {{ ospf.process-id }}
+ router-id {{ loopback.address }}
+{% for item in ospf.neighbor %}
+ network {{ item.address }} area {{ item.area }}
+{% endfor %}
+{% endif %}
+
+
+{% if ospfinterfaces is defined %}
+{% if item in ospfinterfaces %}
+ interface {{ item.interface }}
+   ip ospf dead-interval minimal hello-multiplier 4
+{% endif %}
+{% endif %}

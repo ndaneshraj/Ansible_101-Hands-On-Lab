@@ -1,0 +1,28 @@
+{% if ospf is defined %}
+router ospf {{ ospf.processid }}
+ router-id {{ loopback.address }}
+{% for item in ospf.neighbor %}
+ network {{ item.address }} area {{ item.area }}
+{% endfor %}
+{% endif %}
+
+{% if ospfinterfaces is defined %}
+{% for item in ospfinterfaces %}
+ interface {{ item.interface }}
+   ip ospf dead-interval minimal hello-multiplier 4
+{% endfor %}
+{% endif %}
+
+{% if stubnosum is defined %}
+{% for item in stubnosum %}
+ router ospf {{ ospf.processid }}
+  area {{ item.area }} stub no-summary
+{% endfor %}
+{% endif %}
+
+{% if stubby is defined %}
+{% for item in stubby %}
+ router ospf {{ ospf.processid }}
+  area {{ item.area }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,58 @@
+Ansible Pre-Config
+[defaults]
+inventory = ./hosts
+host_key_checking = false
+timeout = 5
+deprecation_warnings=False
+[persistent_connection]
+command_timeout = 60
+
+Pre-config Mgmt
+
+NA: 192.168.0.2
+
+192.168.0.3 R1
+192.168.0.4 R2
+192.168.0.5 R3
+192.168.0.6 R4
+
+
+conf t
+int fa0/1
+ip add 192.168.0.6 255.255.255.0
+no shut
+exit
+username admin password admin
+username admin privilege 15
+line vty 0 4
+login
+login local
+logging sync
+transport input all
+exit
+ip domain-name ccnp.com
+crypto key generate rsa
+
+
+[SSH Access]
+conf t
+username admin password admin
+username admin privilege 15
+line vty 0 4
+login
+login local
+logging sync
+transport input all
+exit
+ip domain-name ccnp.com
+crypto key generate rsa
+
+1024
+
+
+mkdir {group_vars,host_vars}
+mkdir -p roles/{hostname/{tasks},interfaces/{tasks,templates},routing/{tasks,templates},snmp/{tasks,templates}}
+
+TREE Setup
+apt-get update
+apt-get install tree

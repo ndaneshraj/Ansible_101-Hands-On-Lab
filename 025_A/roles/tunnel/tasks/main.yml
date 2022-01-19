@@ -1,0 +1,5 @@
+---
+
+- name: write tunneling config
+  ios_config:
+    src: "templates/tunnel.j2"

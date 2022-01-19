@@ -1,0 +1,50 @@
+---
+
+hostname: rtr-1
+domain_name: 025.ansible
+
+loopback:
+  address: 1.1.1.1
+  mask: 255.255.255.255
+
+interfaces:
+- interface: Fa0/0
+  description: connection rtr-4
+  address: 10.0.1.1
+  mask: "255.255.255.0"
+
+- interface: S0/0
+  description: connection rtr-2
+  address: 10.0.0.1
+  mask: "255.255.255.252"
+
+- interface: S1/1
+  description: connection rtr-3
+  address: 10.0.0.5
+  mask: "255.255.255.252"
+
+
+ospf:
+  processid: 1
+  neighbor:
+    - {address: 10.0.1.0 0.0.0.255, area: 0}
+    - {address: 10.0.0.0 0.0.0.3, area: 1}
+
+ospfinterfaces:
+- interface: Fa0/0
+
+stubnosum:
+- area: 1 stub no-summary
+
+tunnelr1:
+- interface: tunnel 0
+  address: 11.0.0.1
+  mask: "255.255.255.252"
+  source: serial 0/0
+  destination: 10.0.0.2
+  ospf: ip ospf 1 area 0
+
+static:
+- route: 150.3.3.0 255.255.255.0 serial 1/1 150
+  connected: redistribute connected subnets
+  static: redistribute static subnet
